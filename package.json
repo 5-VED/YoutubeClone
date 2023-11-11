@@ -1,0 +1,24 @@
+{
+  "name": "youtubeclone",
+  "version": "1.0.0",
+  "description": "It is a clone of a youtube apis",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "author": "VED PARMAR",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.3"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cloudinary": "^1.41.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.0",
+    "mongoose-aggregate-paginate-v2": "^1.0.6",
+    "multer": "^1.4.5-lts.1"
+  }
+}
