@@ -1,5 +1,4 @@
 import { Schema, model } from "mongoose"
-import bcrypt from "bcrypt"
 
 
 const userSchema = new Schema({
@@ -49,6 +48,5 @@ const userSchema = new Schema({
     timestamps: true
 })
 
-userSchema.pre()
 
 export const User = model("User", userSchema)
