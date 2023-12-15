@@ -1,8 +1,15 @@
 import { asyncHandler } from "../utils/asyncHandeler.js";
 import { ApiError } from "../utils/ApiError.js";
-import {ApiResponse} from "../utils/ApiResponse.js"
+import { ApiResponse } from "../utils/ApiResponse.js"
 import { User } from "../models/user.model.js"
 
+
+
+/**
+ *  @route http://localhost:3000/api/v1/user/register
+ *  @method POST
+ *  @action Controller to register new User
+ */
 const registerUser = asyncHandler(async (req, res, next) => {
 
     const { username, email, fullname, password } = req.body
@@ -37,9 +44,30 @@ const registerUser = asyncHandler(async (req, res, next) => {
     }
 
     return res.status(201).json(
-        new ApiResponse(200,isUserCreated,"User created successfully")
+        new ApiResponse(200, isUserCreated, "User created successfully")
     )
 
+})
+
+/**
+ *  @route http://localhost:3000/api/v1/user/login
+ *  @method POST
+ *  @action Controller to register new User
+ */
+const loginUser = asyncHandler(async (req, res, next) => {
+    const { email, username, password } = req.body
+
+    if (!username || !email) {
+        throw new ApiError(400, 'Username or Email is required')
+    }
+
+    const user = await User.findOne({
+        $or: [{ email }, { username }]
+    })
+
+    if (!user) {
+        throw new ApiError(404, 'User not Found')
+    }
 })
 
 export { registerUser }
