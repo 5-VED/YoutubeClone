@@ -53,6 +53,8 @@ const registerUser = asyncHandler(async (req, res, next) => {
         fullname,
         username,
         email,
+        avatar: avatarLocalPath,
+        coverImage: coverImageLocalPath,
         password
     })
 
@@ -86,13 +88,13 @@ const loginUser = asyncHandler(async (req, res) => {
     const user = await User.findOne({
         $or: [{ email }, { username }]
     })
-    
+
     if (!user) {
         throw new ApiError(404, 'User not Found')
     }
-    
+
+
     const isPasswordValid = await user.isPasswordCorrect(password)
- 
 
     if (!isPasswordValid) {
         throw new ApiError(401, 'Invalid User Credentials')
@@ -128,13 +130,13 @@ const loginUser = asyncHandler(async (req, res) => {
  *  @action Controller to Logout User
  */
 const logOutUser = asyncHandler(async (req, res) => {
-    await User.findByIdAndUpdate(req.user._id,
-        {
 
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
             $set: {
                 refreshToken: undefined
             }
-
         },
         {
             new: true

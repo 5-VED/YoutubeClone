@@ -52,16 +52,17 @@ const userSchema = new Schema({
 // Pre hook to encrypt password 
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next()
-    this.password = await hash(this.papssword, 10)
+    this.password = await hash(this.password, 10)
     next()
 })
 
 // Custom method to validate password
 userSchema.methods.isPasswordCorrect = async function (password) {
-    await compare(password, this.papssword)
+    return await compare(password, this.password)
+
 }
 
-// Custom method to create Access Token
+// Custom method to create Access Tokend
 userSchema.methods.generateAccessToken = function () {
     return jwt.sign(
         {
