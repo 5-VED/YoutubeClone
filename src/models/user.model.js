@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose"
-import { hash, compare } from "bcrypt"
+import { hash, compare, hashSync } from "bcrypt"
 import jwt from "jsonwebtoken"
 
 const userSchema = new Schema({
